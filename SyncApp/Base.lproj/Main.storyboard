@@ -377,9 +377,9 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="HvW-TW-b1S" firstAttribute="centerY" secondItem="awh-PX-0Kh" secondAttribute="centerY" id="7xg-ek-SYU"/>
                             <constraint firstItem="HvW-TW-b1S" firstAttribute="leading" secondItem="awh-PX-0Kh" secondAttribute="leadingMargin" constant="-20" id="AW3-LH-jWh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HvW-TW-b1S" secondAttribute="trailing" constant="-20" id="UCy-GQ-bBY"/>
-                            <constraint firstItem="HvW-TW-b1S" firstAttribute="top" secondItem="awh-PX-0Kh" secondAttribute="topMargin" id="W2J-gw-Yr4"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

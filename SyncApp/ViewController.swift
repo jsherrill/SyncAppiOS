@@ -30,7 +30,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
         //videoPlayer.loadVideoID("ayg9qnIPDVk");
         if let url = youTubeUrl {
             if let url = NSURL(string: url) {
-            videoPlayer.loadVideoURL(url)
+                videoPlayer.loadVideoURL(url)
             }
         }
     }
