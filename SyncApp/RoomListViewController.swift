@@ -38,6 +38,8 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
                     var roomMembers = room.childSnapshotForPath("members")
                     roomDescription["userCount"] = roomMembers.childrenCount
                     
+                    roomDescription["youTubeUrl"] = room.childSnapshotForPath("youTubeUrl").value
+                    
                     self.rooms.addObject(roomDescription)
                 }
                 self.roomsTable.reloadData()
@@ -120,6 +122,12 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
         // Pass the selected object to the new view controller.
         if segue.identifier == "idShowCreateRoom" {
             (segue.destinationViewController as! CreateRoomViewController).firebaseManager = self.firebaseManager
+        } else if segue.identifier == "idEnterRoom" {
+            if let room = segue.destinationViewController as? ViewController {
+                if let index = roomsTable.indexPathForSelectedRow?.row {
+                    room.youTubeUrl = rooms[index]["youTubeUrl"] as? String
+                }
+            }
         }
     }
     

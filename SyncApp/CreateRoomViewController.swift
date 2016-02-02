@@ -12,6 +12,7 @@ import Firebase
 class CreateRoomViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var roomNameTextField: UITextField!
+    @IBOutlet weak var youTubeUrlTextField: UITextField!
     @IBOutlet var errorLabel: UILabel!
     var firebaseManager:FirebaseManager!
     
@@ -29,10 +30,11 @@ class CreateRoomViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func createButtonPressed(sender: AnyObject) {
         var roomName:String = roomNameTextField.text!
+        var youTubeUrl: String = youTubeUrlTextField.text!
         
-        if roomName.characters.count > 0 {
+        if roomName.characters.count > 0 && youTubeUrl.characters.count > 0 {
             let room = firebaseManager.roomsRoot?.childByAutoId()
-            var roomDetails:[String:AnyObject] = [ "roomName":roomName, "members":[firebaseManager.localUser.username:true]]
+            var roomDetails:[String:AnyObject] = [ "roomName":roomName, "youTubeUrl" : youTubeUrl,  "members":[firebaseManager.localUser.username:true]]
             room?.setValue(roomDetails)
             
             self.performSegueWithIdentifier("idCreatedRoomSegue", sender: self.firebaseManager)
@@ -58,7 +60,9 @@ class CreateRoomViewController: UIViewController, UITextFieldDelegate {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "idCreatedRoomSegue" {
-            (segue.destinationViewController as! RoomListViewController).firebaseManager = self.firebaseManager
+            //(segue.destinationViewController as! RoomListViewController).firebaseManager = self.firebaseManager
+            
+            (segue.destinationViewController as! ViewController).youTubeUrl = self.youTubeUrlTextField.text
         }
     }
 
