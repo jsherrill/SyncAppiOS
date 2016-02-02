@@ -15,6 +15,12 @@
 		7AEEDD821C5F44A300C87ADE /* SyncAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDD811C5F44A300C87ADE /* SyncAppTests.swift */; };
 		7AEEDD8D1C5F44A300C87ADE /* SyncAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDD8C1C5F44A300C87ADE /* SyncAppUITests.swift */; };
 		99B928875D5BEE3D6142AC8F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADC7931CA30CE0797212962D /* Pods.framework */; };
+		C03159701C61576200345D06 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596A1C61576200345D06 /* CreateAccountViewController.swift */; };
+		C03159711C61576200345D06 /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596B1C61576200345D06 /* CreateRoomViewController.swift */; };
+		C03159721C61576200345D06 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596C1C61576200345D06 /* FirebaseManager.swift */; };
+		C03159731C61576200345D06 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596D1C61576200345D06 /* LoginViewController.swift */; };
+		C03159741C61576200345D06 /* RoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596E1C61576200345D06 /* RoomListViewController.swift */; };
+		C03159751C61576200345D06 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596F1C61576200345D06 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +42,7 @@
 
 /* Begin PBXFileReference section */
 		7AEEDD691C5F44A300C87ADE /* SyncApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SyncApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AEEDD6C1C5F44A300C87ADE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7AEEDD6C1C5F44A300C87ADE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AEEDD6E1C5F44A300C87ADE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7AEEDD711C5F44A300C87ADE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7AEEDD731C5F44A300C87ADE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,6 +56,12 @@
 		7AEEDD8E1C5F44A300C87ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A17EB06F8D31470CD624FD30 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		ADC7931CA30CE0797212962D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C031596A1C61576200345D06 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		C031596B1C61576200345D06 /* CreateRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
+		C031596C1C61576200345D06 /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		C031596D1C61576200345D06 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C031596E1C61576200345D06 /* RoomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomListViewController.swift; sourceTree = "<group>"; };
+		C031596F1C61576200345D06 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F35787EC85761D415CE6A6D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +125,12 @@
 		7AEEDD6B1C5F44A300C87ADE /* SyncApp */ = {
 			isa = PBXGroup;
 			children = (
+				C031596A1C61576200345D06 /* CreateAccountViewController.swift */,
+				C031596B1C61576200345D06 /* CreateRoomViewController.swift */,
+				C031596C1C61576200345D06 /* FirebaseManager.swift */,
+				C031596D1C61576200345D06 /* LoginViewController.swift */,
+				C031596E1C61576200345D06 /* RoomListViewController.swift */,
+				C031596F1C61576200345D06 /* User.swift */,
 				7AEEDD6C1C5F44A300C87ADE /* AppDelegate.swift */,
 				7AEEDD6E1C5F44A300C87ADE /* ViewController.swift */,
 				7AEEDD701C5F44A300C87ADE /* Main.storyboard */,
@@ -330,6 +348,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C03159731C61576200345D06 /* LoginViewController.swift in Sources */,
+				C03159701C61576200345D06 /* CreateAccountViewController.swift in Sources */,
+				C03159711C61576200345D06 /* CreateRoomViewController.swift in Sources */,
+				C03159721C61576200345D06 /* FirebaseManager.swift in Sources */,
+				C03159751C61576200345D06 /* User.swift in Sources */,
+				C03159741C61576200345D06 /* RoomListViewController.swift in Sources */,
 				7AEEDD6F1C5F44A300C87ADE /* ViewController.swift in Sources */,
 				7AEEDD6D1C5F44A300C87ADE /* AppDelegate.swift in Sources */,
 			);
