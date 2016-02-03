@@ -39,6 +39,7 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
                     roomDescription["userCount"] = roomMembers.childrenCount
                     
                     roomDescription["youTubeUrl"] = room.childSnapshotForPath("youTubeUrl").value
+                    roomDescription["roomId"] = room.key
                     
                     self.rooms.addObject(roomDescription)
                 }
@@ -125,10 +126,20 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
         } else if segue.identifier == "idEnterRoom" {
             if let room = segue.destinationViewController as? ViewController {
                 if let index = roomsTable.indexPathForSelectedRow?.row {
+                    room.firebaseManager = self.firebaseManager
                     room.youTubeUrl = rooms[index]["youTubeUrl"] as? String
+                    room.roomId = rooms[index]["roomId"] as? String
+                    enterRoom(room.roomId)
                 }
             }
         }
+    }
+    
+    func enterRoom(roomId:String!) {
+        
+        let uniqueRoomInMembers = firebaseManager.membersRoot.childByAppendingPath(roomId)
+        let memberInRoom = uniqueRoomInMembers.childByAppendingPath(firebaseManager.localUser.username)
+        memberInRoom.setValue(0)
     }
     
     @IBAction func createdRoom(segue:UIStoryboardSegue) {
