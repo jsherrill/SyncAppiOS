@@ -76,10 +76,6 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                         if isReady == false {
                             isEveryoneReady = false
                         }
-                        
-                        if state != "Playing" {
-                            isEveryoneReady = false
-                        }
                     }
                     else {
                         myState = state
