@@ -110,9 +110,9 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                     self.videoPlayer.play()
                 }
                 else {
-                    //if myState == "Playing" {
-                      //  self.videoPlayer.pause()
-                   // }
+                    if myState == "Playing" {
+                        self.videoPlayer.pause()
+                    }
                 }
                 
                 
