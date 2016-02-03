@@ -50,19 +50,37 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                 let memberEnumerator = entry.children
                 self.members.removeAllObjects()
                 
+                var isEveryoneReady = true
+                var myState = ""
                 while let member = memberEnumerator.nextObject() as? FDataSnapshot {
                     
                     let memberDescription = NSMutableDictionary()
                     memberDescription["name"] = member.key
                     memberDescription["state"] = member.value
                     
-                    var user = member.key as! String
-                    var state = member.value as! String
+                    var user = member.key as? String
+                    var state = member.value as? String
+                    
+                    if user != self.firebaseManager.localUser.username && state == "Buffering" {
+                        isEveryoneReady = false
+                    }
+                    
+                    if user == self.firebaseManager.localUser.username {
+                        myState = state!
+                        print("myState: \(myState)")
+                    }
+                    
                     
                     // Do stuff here JIM!!!!!!
                     
                     self.members.addObject(memberDescription)
                 }
+                
+                if isEveryoneReady == true && myState != "Buffering" {
+                    self.videoPlayer.play()
+                }
+                
+                
                 self.userTable.reloadData()
             }
         })
