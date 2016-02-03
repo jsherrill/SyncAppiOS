@@ -15,6 +15,7 @@ class CreateRoomViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var youTubeUrlTextField: UITextField!
     @IBOutlet var errorLabel: UILabel!
     var firebaseManager:FirebaseManager!
+    var roomId: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +35,9 @@ class CreateRoomViewController: UIViewController, UITextFieldDelegate {
         
         if roomName.characters.count > 0 && youTubeUrl.characters.count > 0 {
             let room = firebaseManager.roomsRoot?.childByAutoId()
-            var roomDetails:[String:AnyObject] = [ "roomName":roomName, "youTubeUrl" : youTubeUrl,  "members":[firebaseManager.localUser.username:true]]
+            self.roomId = room!.key
+            var roomDetails:[String:AnyObject] = [ "roomName":roomName, "youTubeUrl" : youTubeUrl,  "members":[firebaseManager.localUser.username:true], "roomId":room!.key]
             room?.setValue(roomDetails)
-            
-            self.performSegueWithIdentifier("idCreatedRoomSegue", sender: self.firebaseManager)
         }
         else {
             errorLabel.text = "Error: Please enter a room name"
@@ -62,8 +62,19 @@ class CreateRoomViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "idCreatedRoomSegue" {
             //(segue.destinationViewController as! RoomListViewController).firebaseManager = self.firebaseManager
             
-            (segue.destinationViewController as! ViewController).youTubeUrl = self.youTubeUrlTextField.text
+            if let room = segue.destinationViewController as? ViewController {
+                    room.firebaseManager = self.firebaseManager
+                    room.youTubeUrl = self.youTubeUrlTextField.text
+                    room.roomId = self.roomId!
+                    enterRoom(self.roomId)
+            }
         }
+    }
+    
+    func enterRoom(roomId:String!) {
+        let uniqueRoomInMembers = firebaseManager.membersRoot.childByAppendingPath(roomId)
+        let memberInRoom = uniqueRoomInMembers.childByAppendingPath(firebaseManager.localUser.username)
+        memberInRoom.setValue(0)
     }
 
 }

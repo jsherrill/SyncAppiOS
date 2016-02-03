@@ -32,7 +32,6 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
             "playsinline" : "1"
         ]
         
-        youTubeUrl = "https://www.youtube.com/watch?v=jCYM6j23V9o"
         if let url = youTubeUrl {
             if let url = NSURL(string: url) {
                 videoPlayer.loadVideoURL(url)
@@ -93,6 +92,22 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
     func playerStateChanged(videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState) {
         print(playerState)
         //self.updateMemberStatus(playerState.rawValue)
+        switch playerState {
+        case .Buffering:
+            self.updateMemberStatus("Buffering")
+        case .Ended:
+            self.updateMemberStatus("Ended")
+        case .Paused:
+            self.updateMemberStatus("Paused")
+        case .Playing:
+            self.updateMemberStatus("Playing")
+        case .Queued:
+            self.updateMemberStatus("Queued")
+        case .Unstarted:
+            self.updateMemberStatus("Unstarted")
+        default:
+            break;
+        }
     }
     
     func playerQualityChanged(videoPlayer: YouTubePlayerView, playbackQuality: YouTubePlaybackQuality) {
@@ -118,7 +133,8 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
         
         // Configure the cell...
         cell.textLabel?.text = member["name"] as? String
-        cell.detailTextLabel?.text = member["state"] as? Int == 0 ? "Not Ready" : "Ready"
+        //cell.detailTextLabel?.text = member["state"] as? Int == 0 ? "Not Ready" : "Ready"
+        cell.detailTextLabel?.text = member["state"] as? String
         
         return cell
     }
