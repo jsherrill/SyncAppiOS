@@ -93,7 +93,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                     self.members.addObject(memberDescription)
                 }
                 
-                if isEveryoneReady == true && myState != "Buffering" && myState != "Paused" {
+                if isEveryoneReady == true {
                     self.videoPlayer.play()
                 }
                 else {
