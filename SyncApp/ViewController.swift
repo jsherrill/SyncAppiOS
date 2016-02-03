@@ -56,6 +56,11 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                     memberDescription["name"] = member.key
                     memberDescription["state"] = member.value
                     
+                    var user = member.key as! String
+                    var state = member.value as! String
+                    
+                    // Do stuff here JIM!!!!!!
+                    
                     self.members.addObject(memberDescription)
                 }
                 self.userTable.reloadData()
