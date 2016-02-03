@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import YouTubePlayer
+import SnapKit
 
 class ViewController: UIViewController, YouTubePlayerDelegate {
 
@@ -19,9 +20,25 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
     var youTubeUrl: String!
     @IBOutlet weak var userTable: UITableView!
     @IBOutlet var roomNavItem: UINavigationItem!
+    var messagesViewController:MessagesViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        messagesViewController = MessagesViewController()
+        messagesViewController.roomId = roomId
+        messagesViewController.firebaseManager = firebaseManager
+        
+        self.addChildViewController(messagesViewController)
+        self.view.addSubview(messagesViewController.view)
+        
+
+        
+        messagesViewController.view!.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(self.view)
+            make.bottom.equalTo(self.view)
+            make.top.equalTo(self.videoPlayer.snp_bottom)
+        }
         
         self.navigationController?.hidesBarsOnTap = true
         
@@ -93,9 +110,9 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                     self.videoPlayer.play()
                 }
                 else {
-                    if myState == "Playing" {
-                        self.videoPlayer.pause()
-                    }
+                    //if myState == "Playing" {
+                      //  self.videoPlayer.pause()
+                   // }
                 }
                 
                 

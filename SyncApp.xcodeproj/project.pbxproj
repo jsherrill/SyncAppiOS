@@ -14,6 +14,9 @@
 		7AEEDD771C5F44A300C87ADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEEDD751C5F44A300C87ADE /* LaunchScreen.storyboard */; };
 		7AEEDD821C5F44A300C87ADE /* SyncAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDD811C5F44A300C87ADE /* SyncAppTests.swift */; };
 		7AEEDD8D1C5F44A300C87ADE /* SyncAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDD8C1C5F44A300C87ADE /* SyncAppUITests.swift */; };
+		7AFD8C881C62547D00A3F626 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFD8C871C62547D00A3F626 /* MessagesViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		7AFD8C8D1C62799300A3F626 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFD8C8C1C62799300A3F626 /* Message.swift */; settings = {ASSET_TAGS = (); }; };
+		7AFD8C8F1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AFD8C8E1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png */; settings = {ASSET_TAGS = (); }; };
 		99B928875D5BEE3D6142AC8F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADC7931CA30CE0797212962D /* Pods.framework */; };
 		C03159701C61576200345D06 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596A1C61576200345D06 /* CreateAccountViewController.swift */; };
 		C03159711C61576200345D06 /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596B1C61576200345D06 /* CreateRoomViewController.swift */; };
@@ -54,6 +57,10 @@
 		7AEEDD881C5F44A300C87ADE /* SyncAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SyncAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AEEDD8C1C5F44A300C87ADE /* SyncAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncAppUITests.swift; sourceTree = "<group>"; };
 		7AEEDD8E1C5F44A300C87ADE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AFD8C871C62547D00A3F626 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		7AFD8C8B1C6257B700A3F626 /* SyncApp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SyncApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		7AFD8C8C1C62799300A3F626 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		7AFD8C8E1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png"; sourceTree = "<group>"; };
 		A17EB06F8D31470CD624FD30 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		ADC7931CA30CE0797212962D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C031596A1C61576200345D06 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +144,10 @@
 				7AEEDD731C5F44A300C87ADE /* Assets.xcassets */,
 				7AEEDD751C5F44A300C87ADE /* LaunchScreen.storyboard */,
 				7AEEDD781C5F44A300C87ADE /* Info.plist */,
+				7AFD8C8C1C62799300A3F626 /* Message.swift */,
+				7AFD8C871C62547D00A3F626 /* MessagesViewController.swift */,
+				7AFD8C8B1C6257B700A3F626 /* SyncApp-Bridging-Header.h */,
+				7AFD8C8E1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png */,
 			);
 			path = SyncApp;
 			sourceTree = "<group>";
@@ -274,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AEEDD771C5F44A300C87ADE /* LaunchScreen.storyboard in Resources */,
+				7AFD8C8F1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png in Resources */,
 				7AEEDD741C5F44A300C87ADE /* Assets.xcassets in Resources */,
 				7AEEDD721C5F44A300C87ADE /* Main.storyboard in Resources */,
 			);
@@ -351,9 +363,11 @@
 				C03159731C61576200345D06 /* LoginViewController.swift in Sources */,
 				C03159701C61576200345D06 /* CreateAccountViewController.swift in Sources */,
 				C03159711C61576200345D06 /* CreateRoomViewController.swift in Sources */,
+				7AFD8C881C62547D00A3F626 /* MessagesViewController.swift in Sources */,
 				C03159721C61576200345D06 /* FirebaseManager.swift in Sources */,
 				C03159751C61576200345D06 /* User.swift in Sources */,
 				C03159741C61576200345D06 /* RoomListViewController.swift in Sources */,
+				7AFD8C8D1C62799300A3F626 /* Message.swift in Sources */,
 				7AEEDD6F1C5F44A300C87ADE /* ViewController.swift in Sources */,
 				7AEEDD6D1C5F44A300C87ADE /* AppDelegate.swift in Sources */,
 			);
@@ -450,6 +464,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -488,6 +503,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -502,6 +518,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Test.SyncApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -514,6 +531,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Test.SyncApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 			};
 			name = Release;
 		};
