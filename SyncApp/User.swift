@@ -15,4 +15,5 @@ class User : NSObject {
     var password:String!
     var email:String!
     var userProperties = []
+    var isReady:Bool!
 }

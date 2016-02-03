@@ -59,6 +59,7 @@ class FirebaseManager {
                             self.localUser.username = username
                             self.localUser.password = password
                             self.localUser.email = email
+                            self.localUser.isReady = false
                         }
                         else {
                             self.userAuthError = FAuthenticationError.InvalidCredentials

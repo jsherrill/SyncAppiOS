@@ -36,7 +36,7 @@ class CreateRoomViewController: UIViewController, UITextFieldDelegate {
         if roomName.characters.count > 0 && youTubeUrl.characters.count > 0 {
             let room = firebaseManager.roomsRoot?.childByAutoId()
             self.roomId = room!.key
-            var roomDetails:[String:AnyObject] = [ "roomName":roomName, "youTubeUrl" : youTubeUrl,  "members":[firebaseManager.localUser.username:true], "roomId":room!.key]
+            var roomDetails:[String:AnyObject] = [ "roomName":roomName, "youTubeUrl" : youTubeUrl, "roomId":room!.key]
             room?.setValue(roomDetails)
         }
         else {
@@ -74,7 +74,7 @@ class CreateRoomViewController: UIViewController, UITextFieldDelegate {
     func enterRoom(roomId:String!) {
         let uniqueRoomInMembers = firebaseManager.membersRoot.childByAppendingPath(roomId)
         let memberInRoom = uniqueRoomInMembers.childByAppendingPath(firebaseManager.localUser.username)
-        memberInRoom.setValue(0)
+        memberInRoom.setValue([firebaseManager.localUser.username:["isReady":false, "playerState":"Unstarted"]])
     }
 
 }
