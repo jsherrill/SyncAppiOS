@@ -202,8 +202,15 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
         
         // Configure the cell...
         cell.textLabel?.text = member["name"] as? String
-        //cell.detailTextLabel?.text = member["state"] as? Int == 0 ? "Not Ready" : "Ready"
-        cell.detailTextLabel?.text = member["isReady"] as? Bool == true ? "Ready" : "Not Ready"
+        cell.detailTextLabel?.text = member["state"] as? String
+        
+        if member["isReady"] as? Bool == true {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        }
+        else {
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        }
+        
         
         return cell
     }
