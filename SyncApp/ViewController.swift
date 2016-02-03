@@ -51,7 +51,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                 self.members.removeAllObjects()
                 
                 var isEveryoneReady = true
-                var myState = ""
+                var myState: String!
                 while let member = memberEnumerator.nextObject() as? FDataSnapshot {
                     
                     let memberDescription = NSMutableDictionary()
@@ -66,7 +66,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                     }
                     
                     if user == self.firebaseManager.localUser.username {
-                        myState = state!
+                        myState = state
                         print("myState: \(myState)")
                     }
                     

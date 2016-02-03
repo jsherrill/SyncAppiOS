@@ -138,7 +138,7 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
     func enterRoom(roomId:String!) {
         let uniqueRoomInMembers = firebaseManager.membersRoot.childByAppendingPath(roomId)
         let memberInRoom = uniqueRoomInMembers.childByAppendingPath(firebaseManager.localUser.username)
-        memberInRoom.setValue(0)
+        memberInRoom.setValue("Entered Room")
     }
     
     @IBAction func createdRoom(segue:UIStoryboardSegue) {
