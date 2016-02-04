@@ -210,7 +210,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return navigationController?.navigationBarHidden == true
+        return true
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
