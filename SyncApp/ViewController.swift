@@ -24,7 +24,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
     var roomId: String!
     var youTubeUrl: String!
     
-    var userTableHidden: Bool = false
+    var userTableHidden: Bool = true
 
     // MARK: Creation Methods
     
@@ -62,7 +62,21 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //self.view.backgroundColor = UIColor.blueColor()
+        
+        var gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor(red: 1, green: 1, blue: 1, alpha: 0).CGColor, UIColor(red: 1, green: 1, blue: 1, alpha: 1).CGColor, UIColor(red: 1, green: 1, blue: 1, alpha: 1).CGColor]
+        gradientLayer.locations = [0, 0.8, 1]
+        //gradientLayer.startPoint = CGPointMake(0.0, 1.0)
+        //gradientLayer.endPoint = CGPointMake(0.0, 0.0)
+        
+        //self.userTable.layer.addSublayer(gradientLayer)
+        
         self.createMessagesViewController()
+        
+       // self.messagesViewController.collectionView?.layer.mask = gradientLayer
+        self.messagesViewController.view.layer.mask = gradientLayer
         //self.showUserTable()
         
         //self.navigationController?.hidesBarsOnTap = true
@@ -289,7 +303,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
                 make.left.equalTo(self.view.snp_left)
                 make.right.equalTo(self.view.snp_right)
                 make.bottom.equalTo(self.view.snp_bottom)
-                make.top.equalTo(self.videoPlayer.snp_bottom)
+                make.top.equalTo(self.view.snp_top)
             }
         }
     }
