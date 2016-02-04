@@ -55,7 +55,7 @@ class MessagesViewController: JSQMessagesViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        collectionView?.collectionViewLayout.springinessEnabled = true
+        //collectionView?.collectionViewLayout.springinessEnabled = true
     }
     
     func sendMessage(text: String!, sender: String!) {
@@ -121,27 +121,6 @@ class MessagesViewController: JSQMessagesViewController {
         return incomingBubbleImageView
         
     }
-//    override func collectionView(collectionView: JSQMessagesCollectionView!, bubbleImageViewForItemAtIndexPath indexPath: NSIndexPath!) -> UIImageView! {
-//        let message = messages[indexPath.item]
-//        
-//        if message.sender() == sender {
-//            return UIImageView(image: outgoingBubbleImageView.image, highlightedImage: outgoingBubbleImageView.highlightedImage)
-//        }
-//        
-//        return UIImageView(image: incomingBubbleImageView.image, highlightedImage: incomingBubbleImageView.highlightedImage)
-//    }
-//    
-//    override func collection
-//    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageViewForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
-//        let message = messages[indexPath.item]
-//        let image = UIImage(named: "")
-//        //if let avatar = avatars[message.senderId()] {
-//            return JSQMessagesAvatarImage(avatarImage: image, highlightedImage: image, placeholderImage: image)
-//        } else {
-//            //setupAvatarImage(message.sender(), imageUrl: message.imageUrl(), incoming: true)
-//            return JSQMessagesAvatarImage(avatarImage: image, highlightedImage: image, placeholderImage: image)
-//        }
-//    }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
                 let message = messages[indexPath.item]
@@ -174,6 +153,7 @@ class MessagesViewController: JSQMessagesViewController {
         
         //        cell.textView.linkTextAttributes = [NSForegroundColorAttributeName: cell.textView.textColor,
         //            NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle]
+        self.collectionView?.collectionViewLayout.invalidateLayout()
         return cell
     }
     

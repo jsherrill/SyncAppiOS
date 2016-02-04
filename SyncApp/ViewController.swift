@@ -11,20 +11,24 @@ import Firebase
 import YouTubePlayer
 import SnapKit
 
-class ViewController: UIViewController, YouTubePlayerDelegate {
-
-    var firebaseManager : FirebaseManager!
+class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet var videoPlayer: YouTubePlayerView!
+    @IBOutlet weak var userTable: UITableView!
+    @IBOutlet var roomNavItem: UINavigationItem!
+    
+    var firebaseManager : FirebaseManager!
+    var messagesViewController:MessagesViewController!
+    
     var members:NSMutableArray = NSMutableArray()
     var roomId: String!
     var youTubeUrl: String!
-    @IBOutlet weak var userTable: UITableView!
-    @IBOutlet var roomNavItem: UINavigationItem!
-    var messagesViewController:MessagesViewController!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    var userTableHidden: Bool = false
+
+    // MARK: Creation Methods
+    
+    func createMessagesViewController() {
         messagesViewController = MessagesViewController()
         messagesViewController.roomId = roomId
         messagesViewController.firebaseManager = firebaseManager
@@ -32,27 +36,15 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
         self.addChildViewController(messagesViewController)
         self.view.addSubview(messagesViewController.view)
         
-
-        
-        messagesViewController.view!.snp_makeConstraints { (make) -> Void in
-            make.width.equalTo(self.view)
-            make.bottom.equalTo(self.view)
-            make.top.equalTo(self.videoPlayer.snp_bottom)
+        messagesViewController.view!.snp_remakeConstraints { (make) -> Void in
+            make.left.equalTo(self.view)
+            make.right.equalTo(self.view)
+            make.bottom.equalTo(self.view.snp_bottom).offset(self.view.frame.height)
+            make.top.equalTo(self.view.snp_bottom)
         }
-        
-        self.navigationController?.hidesBarsOnTap = true
-        
-        let roomName = firebaseManager.roomsRoot.childByAppendingPath("\(roomId)/roomName")
-        roomName.observeSingleEventOfType(.Value, withBlock: { entry in
-            if !(entry.value is NSNull) {
-                self.roomNavItem.title = entry.value as? String
-            }
-        })
-        
-        print("Entered Room")
-        //print(youTubeUrl)
-        //print(roomId)
-        
+    }
+    
+    func createYouTubePlayer() {
         videoPlayer.delegate = self
         videoPlayer.playerVars = [
             "playsinline" : "1"
@@ -63,11 +55,30 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                 videoPlayer.loadVideoURL(url)
             }
         }
+    }
+    
+    // MARK: View Cycle Methods
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.createMessagesViewController()
+        //self.showUserTable()
+        
+        //self.navigationController?.hidesBarsOnTap = true
+        
+        let roomName = firebaseManager.roomsRoot.childByAppendingPath("\(roomId)/roomName")
+        roomName.observeSingleEventOfType(.Value, withBlock: { entry in
+            if !(entry.value is NSNull) {
+                self.roomNavItem.title = entry.value as? String
+            }
+        })
+        
+        self.createYouTubePlayer()
         
         if let roomId = roomId {
         
         let membersForRoomRoot = firebaseManager.membersRoot.childByAppendingPath(roomId)
-        //let membersForRoomRoot = firebaseManager.root.childByAppendingPath("members/\(roomId)")
         membersForRoomRoot.observeEventType(.Value, withBlock: { entry in
             if entry.value is NSNull {
                 print ("no members")
@@ -108,6 +119,9 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
                 
                 if isEveryoneReady == true {
                     self.videoPlayer.play()
+                    self.userTableHidden = true
+                    self.view.setNeedsUpdateConstraints()
+                    //self.showMessagesViewController()
                 }
                 else {
                     if myState == "Playing" {
@@ -122,10 +136,30 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
             
         }
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.view.setNeedsUpdateConstraints()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Update view constraints
+    
+    override func updateViewConstraints() {
+        
+        if self.userTableHidden {
+            self.hideUserTable()
+            self.showMessagesViewController()
+        } else {
+            self.showUserTable()
+        }
+        
+        super.updateViewConstraints()
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -147,6 +181,8 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
         let memberInRoom = uniqueRoomInMembers.childByAppendingPath(firebaseManager.localUser.username)
         memberInRoom.updateChildValues(["\(firebaseManager.localUser.username)/isReady":status])
     }
+    
+    // MARK: YouTube Delegate Methods
     
     func playerReady(videoPlayer: YouTubePlayerView) {
         //videoPlayer.play()
@@ -183,13 +219,13 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
         
     }
     
+    // MARK: TableView Delegate Methods
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return members.count
     }
     
@@ -198,9 +234,6 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
         
         let member = members[indexPath.row]
         
-        //var roomDescription = roomEntry.valueForKey(key: roomEntry.key)
-        
-        // Configure the cell...
         cell.textLabel?.text = member["name"] as? String
         cell.detailTextLabel?.text = member["state"] as? String
         
@@ -214,6 +247,97 @@ class ViewController: UIViewController, YouTubePlayerDelegate {
         
         return cell
     }
-
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let frame = tableView.frame
+        
+        let button: UIButton = UIButton(frame: CGRectMake(0, 0, frame.width, 44))
+        button.setTitle("Not Ready", forState: .Normal)
+        button.setTitle("Ready", forState: .Selected)
+        button.setTitle("Ready", forState: [.Selected, .Highlighted])
+        
+        button.titleLabel?.textColor = UIColor.whiteColor()
+        button.backgroundColor = UIColor.redColor()
+        button.addTarget(self, action: "readyButtonTapped:", forControlEvents: .TouchUpInside)
+        
+        button.setBackgroundColor(UIColor.redColor(), forUIControlState: .Normal)
+        button.setBackgroundColor(UIColor.greenColor(), forUIControlState: .Selected)
+        button.setBackgroundColor(UIColor.greenColor(), forUIControlState: [.Selected, .Highlighted])
+        
+        let headerView: UIView = UIView(frame: CGRectMake(0, 0, frame.width, 44))
+        headerView.addSubview(button);
+        
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+    
+    func readyButtonTapped(sender: UIButton!) {
+        sender.selected = !sender.selected
+        firebaseManager.localUser.isReady = !firebaseManager.localUser.isReady
+        updateMemberReadyStatus(firebaseManager.localUser.isReady)
+    }
+    
+    // MARK: Hide / Show Views
+    
+    func showMessagesViewController() {
+        
+        UIView.animateWithDuration(0.5) {
+            self.messagesViewController.view!.snp_remakeConstraints { (make) -> Void in
+                make.left.equalTo(self.view.snp_left)
+                make.right.equalTo(self.view.snp_right)
+                make.bottom.equalTo(self.view.snp_bottom)
+                make.top.equalTo(self.videoPlayer.snp_bottom)
+            }
+        }
+    }
+    
+    func showUserTable() {
+        
+        UIView.animateWithDuration(0.5) {
+            self.userTable.snp_remakeConstraints { (make) -> Void in
+                make.left.equalTo(self.view.snp_left)
+                make.top.equalTo(self.videoPlayer.snp_bottom)
+                make.right.equalTo(self.view.snp_right)
+                make.bottom.equalTo(self.view.snp_bottom)
+            }
+        }
+    }
+    
+    func hideUserTable() {
+        
+        UIView.animateWithDuration(0.5) {
+            self.userTable.snp_remakeConstraints { (make) -> Void in
+                make.left.equalTo(self.view.snp_left)
+                make.top.equalTo(self.view.snp_bottom)
+                make.right.equalTo(self.view.snp_right)
+                make.bottom.equalTo(self.view.snp_bottom).offset(self.view.frame.height)
+            }
+        }
+    }
+    
 }
+
+extension UIButton {
+    private func imageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        
+        CGContextSetFillColorWithColor(context, color.CGColor)
+        CGContextFillRect(context, rect)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    func setBackgroundColor(color: UIColor, forUIControlState state: UIControlState) {
+        self.setBackgroundImage(imageWithColor(color), forState: state)
+    }
+}
+
 
