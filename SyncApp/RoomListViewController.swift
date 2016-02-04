@@ -24,6 +24,14 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        firebaseManager = FirebaseManager()
+        firebaseManager.initFirebaseURLsFromPListKey("Info", plistURLKey: "FirebaseURL")
+        
+        let localUser = NSUserDefaults.standardUserDefaults().valueForKey("FirebaseUser")
+        if localUser != nil {
+            firebaseManager.localUser.deserialize((localUser as? [String:AnyObject])!)
+        }
+        
         firebaseManager.roomsRoot.observeEventType(.Value, withBlock: { entry in
             if entry.value is NSNull {
                 print ("no rooms")
@@ -139,6 +147,11 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
         let uniqueRoomInMembers = firebaseManager.membersRoot.childByAppendingPath(roomId)
         let memberInRoom = uniqueRoomInMembers.childByAppendingPath(firebaseManager.localUser.username)
         memberInRoom.setValue([firebaseManager.localUser.username:["isReady":false, "playerState":"Unstarted"]])
+    }
+    
+    @IBAction func logoutPressed(sender: AnyObject) {
+        firebaseManager.root.unauth()
+        self.performSegueWithIdentifier("idLogoutSegue", sender: self)
     }
     
     @IBAction func createdRoom(segue:UIStoryboardSegue) {

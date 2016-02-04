@@ -25,7 +25,8 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
     var youTubeUrl: String!
     
     var userTableHidden: Bool = false
-
+    var hasStarted: Bool = false
+    
     // MARK: Creation Methods
     
     func createMessagesViewController() {
@@ -102,6 +103,8 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
                 self.members.removeAllObjects()
                 
                 var isEveryoneReady = true
+                var isEveryonePlaying = true
+                
                 var myState: String!
                 while let member = memberEnumerator.nextObject() as? FDataSnapshot {
                     print (member)
@@ -114,35 +117,43 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
                     var state:String = memberDescription["state"] as! String
                     var isReady:Bool = memberDescription["isReady"] as! Bool
                     
-                    if user != self.firebaseManager.localUser.username {
-                        if isReady == false {
-                            isEveryoneReady = false
-                        }
-                    }
-                    else {
+                    if user == self.firebaseManager.localUser.username {
                         myState = state
-                        if memberDescription["isReady"] as? Bool == false {
-                            isEveryoneReady = false
-                        }
                     }
                     
-                    // Do stuff here JIM!!!!!!
+                    if isReady == false {
+                        isEveryoneReady = false
+                    }
+                    
+                    if self.hasStarted {
+                        if user == self.firebaseManager.localUser.username {
+                            if myState != "Playing" && isReady == true {
+                                self.updateMemberReadyStatus(false)
+                                isEveryoneReady = false
+                            }
+                            else if myState == "Playing" && isReady == false {
+                                self.updateMemberReadyStatus(true)
+                            }
+                        }
+                    }
                     
                     self.members.addObject(memberDescription)
                 }
                 
-                if isEveryoneReady == true {
+                if isEveryoneReady == true && self.hasStarted == false {
                     self.videoPlayer.play()
                     self.userTableHidden = true
                     self.view.setNeedsUpdateConstraints()
+                    self.hasStarted = true
                     //self.showMessagesViewController()
                 }
-                else {
-                    if myState == "Playing" {
-                        self.videoPlayer.pause()
-                    }
-                }
                 
+                if self.hasStarted {
+                    if isEveryoneReady {
+
+                    }
+                    
+                }
                 
                 self.userTable.reloadData()
             }

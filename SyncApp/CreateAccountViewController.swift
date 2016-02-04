@@ -145,6 +145,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                             self.errorLabel.text = "Could not log in at this time."
                         }
                         else {
+                            NSUserDefaults.standardUserDefaults().setObject(self.firebaseManager.localUser.serialize(), forKey: "FirebaseUser")
                             self.performSegueWithIdentifier("idLoginSegue", sender: self.firebaseManager)
                         }
                     })

@@ -7,15 +7,32 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    var firebaseManager: FirebaseManager?
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        firebaseManager = FirebaseManager()
+        firebaseManager?.initFirebaseURLsFromPListKey("Info", plistURLKey: "FirebaseURL")
+        
+        if firebaseManager?.root.authData != nil {
+            // we have an authorized session already so bypass the login screen
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabController = storyboard.instantiateViewControllerWithIdentifier("idTabController")
+            
+            self.window?.rootViewController = tabController
+        }
+        else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginScreen = storyboard.instantiateViewControllerWithIdentifier("idLoginScreen")
+            self.window?.rootViewController = loginScreen
+        }
+        
         return true
     }
 
@@ -39,8 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        //firebaseManager?.root.unauth()
     }
-
 
 }
 

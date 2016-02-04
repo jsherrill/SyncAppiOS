@@ -44,6 +44,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         firebaseManager.authUser(username, password: password, withCompletionBlock: { error, authData in
             if error == nil {
+                NSUserDefaults.standardUserDefaults().setObject(self.firebaseManager.localUser.serialize(), forKey: "FirebaseUser")
                 self.performSegueWithIdentifier("idLoginSegue", sender: self.firebaseManager)
             }
             else {
