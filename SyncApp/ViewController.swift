@@ -58,10 +58,31 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
         }
     }
     
+    func createCloseButton() {
+        let button: UIButton = UIButton(frame: CGRectMake(0, 0, 25, 25))
+        button.setTitle("X", forState: .Normal)
+        
+        button.titleLabel?.textColor = UIColor.whiteColor()
+        button.backgroundColor = UIColor.redColor()
+        button.addTarget(self, action: "closeButtonTapped:", forControlEvents: .TouchUpInside)
+        
+        self.view.addSubview(button)
+        
+        button.snp_makeConstraints { (make) -> Void in
+            make.top.left.equalTo(self.view).offset(5)
+            make.width.height.equalTo(25)
+        }
+    }
+    
+    func closeButtonTapped(sender: UIButton!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     // MARK: View Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         //self.view.backgroundColor = UIColor.blueColor()
         
@@ -75,6 +96,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
         //self.userTable.layer.addSublayer(gradientLayer)
         
         self.createMessagesViewController()
+        self.createCloseButton()
         
        // self.messagesViewController.collectionView?.layer.mask = gradientLayer
         self.messagesViewController.view.layer.mask = gradientLayer
