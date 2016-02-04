@@ -43,7 +43,7 @@ class Message : NSObject, JSQMessageData {
     }
     
     func messageHash() -> UInt {
-        return 100
+        return UInt(abs(self.senderId().hash ^ self.date().hash ^ self.text().hash))
     }
     
     func imageUrl() -> String? {
