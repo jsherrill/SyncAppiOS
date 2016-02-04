@@ -27,6 +27,13 @@ class CreateRoomViewController: UIViewController, UITextFieldDelegate, YouTubePl
         errorLabel.text = ""
         youtubePlayer = YouTubePlayerView()
         youtubePlayer.delegate = self
+        
+        var pasteboardString:String? = UIPasteboard.generalPasteboard().string
+        if let url = pasteboardString {
+            if let url = NSURL(string: url) {
+                youTubeUrlTextField.text = url.absoluteString
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
