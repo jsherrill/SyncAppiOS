@@ -24,7 +24,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
     var roomId: String!
     var youTubeUrl: String!
     
-    var userTableHidden: Bool = true
+    var userTableHidden: Bool = false
 
     // MARK: Creation Methods
     
