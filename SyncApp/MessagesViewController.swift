@@ -42,7 +42,7 @@ class MessagesViewController: JSQMessagesViewController {
         // Do any additional setup after loading the view.
         
         let messagesRootForRoom = firebaseManager.messagesRoot.childByAppendingPath(roomId)
-        messagesRootForRoom.queryLimitedToFirst(25).observeEventType(FEventType.ChildAdded, withBlock: { (snapshot) in
+        messagesRootForRoom.queryLimitedToLast(25).observeEventType(FEventType.ChildAdded, withBlock: { (snapshot) in
               let text = snapshot.value["text"] as? String
               let sender = snapshot.value["sender"] as? String
               let imageUrl = "http://orig04.deviantart.net/3b00/f/2010/249/d/3/free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png" //snapshot.value["imageUrl"] as? String
