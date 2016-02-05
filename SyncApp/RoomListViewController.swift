@@ -18,6 +18,10 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
     var roomCount = 1
     var rooms:NSMutableArray = NSMutableArray()
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
