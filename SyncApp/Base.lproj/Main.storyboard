@@ -295,14 +295,13 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="26U-nZ-2QQ">
                                 <rect key="frame" x="20" y="104" width="280" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZE-dw-79p">
                                 <rect key="frame" x="137" y="239" width="46" height="30"/>
                                 <state key="normal" title="Create"/>
                                 <connections>
                                     <action selector="createButtonPressed:" destination="EiG-mF-eZG" eventType="touchUpInside" id="gip-kO-RCg"/>
-                                    <segue destination="9uQ-sz-1dT" kind="showDetail" identifier="idCreatedRoomSegue" action="showViewController:sender:" id="5JL-NQ-KbD"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwc-RJ-RCo">
@@ -314,7 +313,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="YouTube URL" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ip0-ti-O6h">
                                 <rect key="frame" x="20" y="142" width="280" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="webSearch"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -325,6 +324,7 @@
                         <outlet property="errorLabel" destination="gwc-RJ-RCo" id="TK9-mp-CTC"/>
                         <outlet property="roomNameTextField" destination="26U-nZ-2QQ" id="m8h-z1-IiG"/>
                         <outlet property="youTubeUrlTextField" destination="ip0-ti-O6h" id="qeU-Bg-g1W"/>
+                        <segue destination="9uQ-sz-1dT" kind="show" identifier="idCreatedRoomSegue" id="kc1-yz-DSM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="onj-6b-Jr9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -558,6 +558,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="oCD-TV-b3X"/>
         <segue reference="JjS-aq-PZs"/>
-        <segue reference="NqY-eO-Pcb"/>
+        <segue reference="kc1-yz-DSM"/>
     </inferredMetricsTieBreakers>
 </document>
