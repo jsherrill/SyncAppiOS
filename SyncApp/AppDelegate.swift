@@ -17,6 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
+        let darkness : CGFloat = 40.0 / 255.0
+        UINavigationBar.appearance().barTintColor = UIColor(red: darkness, green: darkness, blue: darkness, alpha: 1)
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        UITabBar.appearance().translucent = false
+        UITabBar.appearance().barTintColor = UIColor(red: darkness, green: darkness, blue: darkness, alpha: 1)
+        
         firebaseManager = FirebaseManager()
         firebaseManager?.initFirebaseURLsFromPListKey("Info", plistURLKey: "FirebaseURL")
         

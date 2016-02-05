@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import Kingfisher
+import YouTubePlayer
 
 class RoomListViewController: UIViewController, UITableViewDelegate {
     var firebaseManager:FirebaseManager!
@@ -74,18 +76,41 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("idRoomCell", forIndexPath: indexPath)
-
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("idRoomCellWithImage", forIndexPath: indexPath) as! RoomListViewTableViewCell
+        
         let roomEntry = rooms[indexPath.row]
-        let userCount = roomEntry["userCount"] as? Int
+        let roomName = roomEntry["roomName"] as? String
+        let youTubeUrl = roomEntry["youTubeUrl"] as? String
+        var youTubeImageUrl = "https://img.youtube.com/vi/<insert-youtube-video-id-here>/mqdefault.jpg"
         
-        //var roomDescription = roomEntry.valueForKey(key: roomEntry.key)
+        if let url = NSURL(string: youTubeUrl!) {
+            if let youTubeId = videoIDFromYouTubeURL(url) {
+                youTubeImageUrl = youTubeImageUrl.stringByReplacingOccurrencesOfString("<insert-youtube-video-id-here>", withString: youTubeId)
+                if let youTubeImageUrl = NSURL(string: youTubeImageUrl) {
+                    cell.roomImageView.kf_setImageWithURL(youTubeImageUrl)
+                }
+            }
+        }
         
-        // Configure the cell...
-        cell.textLabel?.text = roomEntry["roomName"] as? String
-        cell.detailTextLabel?.text = "\(userCount!) User(s)"
+        cell.roomTitleLabel?.text = roomName
+        
+//        let cell = tableView.dequeueReusableCellWithIdentifier("idRoomCell", forIndexPath: indexPath)
+//
+//        let roomEntry = rooms[indexPath.row]
+//        let userCount = roomEntry["userCount"] as? Int
+//        
+//        //var roomDescription = roomEntry.valueForKey(key: roomEntry.key)
+//        
+//        // Configure the cell...
+//        cell.textLabel?.text = roomEntry["roomName"] as? String
+//        cell.detailTextLabel?.text = "\(userCount!) User(s)"
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 90
     }
 
     /*

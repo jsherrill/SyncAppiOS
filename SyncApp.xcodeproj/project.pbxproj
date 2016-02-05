@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55D9BD2A1C64661C00299AD6 /* RoomListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D9BD291C64661C00299AD6 /* RoomListViewTableViewCell.swift */; };
 		7AEEDD6D1C5F44A300C87ADE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDD6C1C5F44A300C87ADE /* AppDelegate.swift */; };
 		7AEEDD6F1C5F44A300C87ADE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDD6E1C5F44A300C87ADE /* ViewController.swift */; };
 		7AEEDD721C5F44A300C87ADE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEEDD701C5F44A300C87ADE /* Main.storyboard */; };
@@ -14,9 +15,9 @@
 		7AEEDD771C5F44A300C87ADE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AEEDD751C5F44A300C87ADE /* LaunchScreen.storyboard */; };
 		7AEEDD821C5F44A300C87ADE /* SyncAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDD811C5F44A300C87ADE /* SyncAppTests.swift */; };
 		7AEEDD8D1C5F44A300C87ADE /* SyncAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDD8C1C5F44A300C87ADE /* SyncAppUITests.swift */; };
-		7AFD8C881C62547D00A3F626 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFD8C871C62547D00A3F626 /* MessagesViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		7AFD8C8D1C62799300A3F626 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFD8C8C1C62799300A3F626 /* Message.swift */; settings = {ASSET_TAGS = (); }; };
-		7AFD8C8F1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AFD8C8E1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png */; settings = {ASSET_TAGS = (); }; };
+		7AFD8C881C62547D00A3F626 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFD8C871C62547D00A3F626 /* MessagesViewController.swift */; };
+		7AFD8C8D1C62799300A3F626 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFD8C8C1C62799300A3F626 /* Message.swift */; };
+		7AFD8C8F1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AFD8C8E1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png */; };
 		99B928875D5BEE3D6142AC8F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADC7931CA30CE0797212962D /* Pods.framework */; };
 		C03159701C61576200345D06 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596A1C61576200345D06 /* CreateAccountViewController.swift */; };
 		C03159711C61576200345D06 /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596B1C61576200345D06 /* CreateRoomViewController.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		55D9BD291C64661C00299AD6 /* RoomListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomListViewTableViewCell.swift; sourceTree = "<group>"; };
 		7AEEDD691C5F44A300C87ADE /* SyncApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SyncApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AEEDD6C1C5F44A300C87ADE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AEEDD6E1C5F44A300C87ADE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				C031596C1C61576200345D06 /* FirebaseManager.swift */,
 				C031596D1C61576200345D06 /* LoginViewController.swift */,
 				C031596E1C61576200345D06 /* RoomListViewController.swift */,
+				55D9BD291C64661C00299AD6 /* RoomListViewTableViewCell.swift */,
 				C031596F1C61576200345D06 /* User.swift */,
 				7AEEDD6C1C5F44A300C87ADE /* AppDelegate.swift */,
 				7AEEDD6E1C5F44A300C87ADE /* ViewController.swift */,
@@ -365,6 +368,7 @@
 				C03159711C61576200345D06 /* CreateRoomViewController.swift in Sources */,
 				7AFD8C881C62547D00A3F626 /* MessagesViewController.swift in Sources */,
 				C03159721C61576200345D06 /* FirebaseManager.swift in Sources */,
+				55D9BD2A1C64661C00299AD6 /* RoomListViewTableViewCell.swift in Sources */,
 				C03159751C61576200345D06 /* User.swift in Sources */,
 				C03159741C61576200345D06 /* RoomListViewController.swift in Sources */,
 				7AFD8C8D1C62799300A3F626 /* Message.swift in Sources */,
