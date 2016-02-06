@@ -183,6 +183,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
             
             var navController = controller.customizableViewControllers?[0] as! UINavigationController
             (navController.viewControllers[0] as! RoomListViewController).firebaseManager = self.firebaseManager
+            
+            (navController.viewControllers[1] as! ProfileViewController).firebaseManager = self.firebaseManager
         }
     }
 

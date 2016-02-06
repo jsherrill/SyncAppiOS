@@ -25,6 +25,7 @@
 		C03159731C61576200345D06 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596D1C61576200345D06 /* LoginViewController.swift */; };
 		C03159741C61576200345D06 /* RoomListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596E1C61576200345D06 /* RoomListViewController.swift */; };
 		C03159751C61576200345D06 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C031596F1C61576200345D06 /* User.swift */; };
+		C0AC9A841C65B47C00F1200B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AC9A831C65B47C00F1200B /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		C031596D1C61576200345D06 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C031596E1C61576200345D06 /* RoomListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomListViewController.swift; sourceTree = "<group>"; };
 		C031596F1C61576200345D06 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C0AC9A831C65B47C00F1200B /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F35787EC85761D415CE6A6D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,6 +153,7 @@
 				7AFD8C871C62547D00A3F626 /* MessagesViewController.swift */,
 				7AFD8C8B1C6257B700A3F626 /* SyncApp-Bridging-Header.h */,
 				7AFD8C8E1C62842200A3F626 /* free_50x50_white_kitty_icon_by_zeldakinz-d2y6vrp.png */,
+				C0AC9A831C65B47C00F1200B /* ProfileViewController.swift */,
 			);
 			path = SyncApp;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				7AFD8C881C62547D00A3F626 /* MessagesViewController.swift in Sources */,
 				C03159721C61576200345D06 /* FirebaseManager.swift in Sources */,
 				55D9BD2A1C64661C00299AD6 /* RoomListViewTableViewCell.swift in Sources */,
+				C0AC9A841C65B47C00F1200B /* ProfileViewController.swift in Sources */,
 				C03159751C61576200345D06 /* User.swift in Sources */,
 				C03159741C61576200345D06 /* RoomListViewController.swift in Sources */,
 				7AFD8C8D1C62799300A3F626 /* Message.swift in Sources */,

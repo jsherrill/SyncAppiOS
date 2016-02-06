@@ -18,6 +18,7 @@ class FirebaseManager {
     var roomsRoot:Firebase!
     var membersRoot:Firebase!
     var messagesRoot:Firebase!
+    var friendsRoot:Firebase!
     var localUser:User = User()
     var userAuthError:FAuthenticationError!
     
@@ -37,6 +38,7 @@ class FirebaseManager {
             roomsRoot = root.childByAppendingPath("rooms")
             membersRoot = root.childByAppendingPath("members")
             messagesRoot = root.childByAppendingPath("messages")
+            friendsRoot = root.childByAppendingPath("friends")
         }
     }
     
