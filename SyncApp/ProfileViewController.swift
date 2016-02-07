@@ -195,12 +195,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 self.errorLabel.text = ""
                             }
                             else {
-                                if (entry.value as! FDataSnapshot).value as! Bool == true {
-                                    self.errorLabel.text = "You're already friends with this user."
-                                }
-                                else {
-                                    self.errorLabel.text = "You've already invited this user."
-                                }
+                                self.errorLabel.text = "You've already invited this user."
                                 self.addFriendTextfield.text = ""
                             }
                         })
