@@ -19,7 +19,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var errorLabel: UILabel!
     
     var friendsList:[String:Bool]!
+    var pendingFriends:[String:Bool]!
+    
+    
     var firebaseManager:FirebaseManager!
+    
+    var acceptAction:UITableViewRowAction!
+    var rejectAction:UITableViewRowAction!
+    var removeAction:UITableViewRowAction!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +43,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         configureProfileLabels()
+        configureTableActions()
         
         let userFriends = firebaseManager.friendsRoot.childByAppendingPath(firebaseManager.localUser.username)
         
         friendsList = [String:Bool]()
-
+        pendingFriends = [String:Bool]()
+        
         // watch our friends in Firebase
         userFriends.observeEventType(.Value, withBlock: { entry in
             if entry.value is NSNull {
@@ -52,11 +61,37 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 while let friend = friendEnumerator.nextObject() as? FDataSnapshot {
                     let friendName = friend.key
-                    let accepted = friend.value as! Bool
+                    let friendRef = self.firebaseManager.friendsRoot.childByAppendingPath("\(friendName)/\(self.firebaseManager.localUser.username)")
+                    let localFriendRef = self.firebaseManager.friendsRoot.childByAppendingPath("\(self.firebaseManager.localUser.username)/\(friendName)")
                     
-                    self.friendsList[friendName] = accepted
+                    var theyAccepted = false
+                    var weAccepted = false
+                    var areAccepted = false
+                    
+                    // check if this user has accepted us
+                    friendRef.observeSingleEventOfType(.Value, withBlock: { entry in
+                        if (entry.value is NSNull) == false {
+                            theyAccepted = entry.value as! Bool
+                            
+                            localFriendRef.observeSingleEventOfType(.Value, withBlock: { entry in
+                                if (entry.value is NSNull) == false {
+                                    weAccepted = entry.value as! Bool
+                                    
+                                    areAccepted = weAccepted && theyAccepted
+                                    
+                                    if areAccepted == true {
+                                        self.friendsList[friendName] = areAccepted
+                                        self.friendsTable.reloadData()
+                                    }
+                                    else {
+                                        self.pendingFriends[friendName] = weAccepted
+                                        self.friendsTable.reloadData()
+                                    }
+                                }
+                            })
+                        }
+                    })
                 }
-                self.friendsTable.reloadData()
             }
         })
     }
@@ -64,6 +99,20 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func configureTableActions() {
+        acceptAction = UITableViewRowAction(style: .Normal, title: "Accept", handler: { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            self.acceptFriendAtIndexPath(indexPath)
+        })
+        acceptAction.backgroundColor = UIColor.greenColor()
+        
+        rejectAction = UITableViewRowAction(style: .Normal, title: "Reject", handler: { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            self.removeFriendAtIndexPath(indexPath)
+        })
+        rejectAction.backgroundColor = UIColor.redColor()
+        removeAction = rejectAction
+        removeAction.title = "Remove"
     }
     
     // MARK: - Add Friend Methods
@@ -116,10 +165,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                         // update our local user entry
                         localUserFriendEntry.observeSingleEventOfType(.Value, withBlock: { entry in
                             if entry.value is NSNull {
-                                localUserFriendEntry.setValue(["\(userNoSpace)":false])
+                                localUserFriendEntry.setValue(["\(userNoSpace)":true])
                             }
                             else {
-                                localUserFriendEntry.updateChildValues(["\(userNoSpace)":false])
+                                localUserFriendEntry.updateChildValues(["\(userNoSpace)":true])
                             }
                         })
                         self.addFriendTextfield.text = ""
@@ -134,10 +183,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 // update the local user entry
                                 localUserFriendEntry.observeSingleEventOfType(.Value, withBlock: { entry in
                                     if entry.value is NSNull {
-                                        localUserFriendEntry.setValue(["\(userNoSpace)":false])
+                                        localUserFriendEntry.setValue(["\(userNoSpace)":true])
                                     }
                                     else {
-                                        localUserFriendEntry.updateChildValues(["\(userNoSpace)":false])
+                                        localUserFriendEntry.updateChildValues(["\(userNoSpace)":true])
                                     }
                                 })
                                 self.addFriendTextfield.text = ""
@@ -153,6 +202,59 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 self.addFriendTextfield.text = ""
                             }
                         })
+                    }
+                })
+            }
+        })
+    }
+    
+    // MARK: - Private Accept/Remove Friend Methods
+    private func acceptFriendAtIndexPath(indexPath:NSIndexPath) {
+        let acceptIndex = self.pendingFriends.startIndex.advancedBy(indexPath.row)
+        let acceptUsername = self.pendingFriends.keys[acceptIndex]
+        
+        let localUserFriendEntry = self.firebaseManager.friendsRoot.childByAppendingPath(self.firebaseManager.localUser.username)
+        
+        localUserFriendEntry.updateChildValues([acceptUsername:true])
+        self.pendingFriends.removeAtIndex(acceptIndex)
+        self.friendsTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+    }
+    
+    private func removeFriendAtIndexPath(indexPath:NSIndexPath) {
+        var localUserFriendEntry:Firebase!
+        var removingFriendEntry:Firebase!
+        var removingUsername:String!
+        
+        if indexPath.section == 0 {
+            let removeIndex = self.friendsList.startIndex.advancedBy(indexPath.row)
+            removingUsername = self.friendsList.keys[removeIndex]
+        }
+        else if indexPath.section == 1 {
+            let removeIndex = self.pendingFriends.startIndex.advancedBy(indexPath.row)
+            removingUsername = self.pendingFriends.keys[removeIndex]
+        }
+        
+        localUserFriendEntry = self.firebaseManager.friendsRoot.childByAppendingPath(self.firebaseManager.localUser.username)
+        removingFriendEntry = self.firebaseManager.friendsRoot.childByAppendingPath(removingUsername)
+        
+        localUserFriendEntry.observeSingleEventOfType(.Value, withBlock: { entry in
+            if (entry.value is NSNull) == false {
+                removingFriendEntry.observeSingleEventOfType(.Value, withBlock: { entry in
+                    if (entry.value is NSNull) == false {
+                        removingFriendEntry.childByAppendingPath(self.firebaseManager.localUser.username).removeValue()
+                        localUserFriendEntry.childByAppendingPath(removingUsername).removeValue()
+                        
+                        if indexPath.section == 0 {
+                            let removeIndex = self.friendsList.startIndex.advancedBy(indexPath.row)
+                            self.friendsList.removeAtIndex(removeIndex)
+                            self.friendsTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+                        }
+                        else if indexPath.section == 1 {
+                            let removeIndex = self.pendingFriends.startIndex.advancedBy(indexPath.row)
+                            self.pendingFriends.removeAtIndex(removeIndex)
+                            self.friendsTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+                        }
+                        
                     }
                 })
             }
@@ -180,26 +282,46 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - UITableviewDelegate Methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendsList.count
+        switch section {
+        case 0:
+            return friendsList.count
+        case 1:
+            return pendingFriends.count
+        default :
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Friends"
+        switch section {
+        case 0:
+            return "Friends"
+        case 1:
+            return "Pending Invites"
+        default:
+            return ""
+        }
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("idFriendCell", forIndexPath: indexPath)
         
-        let friendIndex = friendsList.startIndex.advancedBy(indexPath.row)
-        let friendName = friendsList.keys[friendIndex]
-        let accepted = friendsList.values[friendIndex]
-        
-        cell.textLabel?.text = friendName
-        
-        if accepted == true {
+        if indexPath.section == 0 {
+            let friendIndex = friendsList.startIndex.advancedBy(indexPath.row)
+            let friendName = friendsList.keys[friendIndex]
+            
+            cell.textLabel?.text = friendName
             cell.detailTextLabel?.text = ""
         }
-        else {
+        else if indexPath.section == 1 {
+            let friendIndex = pendingFriends.startIndex.advancedBy(indexPath.row)
+            let friendName = pendingFriends.keys[friendIndex]
+            
+            cell.textLabel?.text = friendName
             cell.detailTextLabel?.text = "Pending"
         }
         
@@ -207,26 +329,27 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            let removeIndex = friendsList.startIndex.advancedBy(indexPath.row)
-            let removingUsername = friendsList.keys[removeIndex]
-            
-            let localUserFriendEntry = firebaseManager.friendsRoot.childByAppendingPath(firebaseManager.localUser.username)
-            let removingFriendEntry = firebaseManager.friendsRoot.childByAppendingPath(removingUsername)
-            
-            localUserFriendEntry.observeSingleEventOfType(.Value, withBlock: { entry in
-                if (entry.value is NSNull) == false {
-                    removingFriendEntry.observeSingleEventOfType(.Value, withBlock: { entry in
-                        if (entry.value is NSNull) == false {
-                            removingFriendEntry.childByAppendingPath(self.firebaseManager.localUser.username).removeValue()
-                            localUserFriendEntry.childByAppendingPath(removingUsername).removeValue()
-                            self.friendsList.removeAtIndex(removeIndex)
-                            self.friendsTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-                        }
-                    })
-                }
-            })
+
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        if indexPath.section == 0 { // Friends section
+            return [removeAction]
         }
+        else if indexPath.section == 1 { // Pending invites section
+            let friendIndex = pendingFriends.startIndex.advancedBy(indexPath.row)
+            let friendName = pendingFriends.keys[friendIndex]
+            let accepted = pendingFriends.values[friendIndex]
+            
+            if accepted {
+                return [removeAction]
+            }
+            else {
+                return [rejectAction, acceptAction]
+            }
+        }
+        
+        return []
     }
     
     /*
