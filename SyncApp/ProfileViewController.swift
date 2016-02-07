@@ -111,8 +111,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.removeFriendAtIndexPath(indexPath)
         })
         rejectAction.backgroundColor = UIColor.redColor()
-        removeAction = rejectAction
-        removeAction.title = "Remove"
+        
+        removeAction = UITableViewRowAction(style: .Normal, title: "Remove", handler: { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            self.removeFriendAtIndexPath(indexPath)
+        })
     }
     
     // MARK: - Add Friend Methods
