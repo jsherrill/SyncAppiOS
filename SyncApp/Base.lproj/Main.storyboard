@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="T6R-er-Yci">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="T6R-er-Yci">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -516,39 +516,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qOR-tR-BOq">
-                                <rect key="frame" x="0.0" y="0.0" width="66" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="18" id="Peq-YC-ZW4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <state key="normal" title="Change Email"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qmb-6D-EUm">
-                                <rect key="frame" x="145" y="140" width="31" height="17"/>
+                                <rect key="frame" x="145.5" y="139.5" width="30.5" height="17"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-UltraLight" family="Apple SD Gothic Neo" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Friend's Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eu3-IQ-ytR">
-                                <rect key="frame" x="0.0" y="0.0" width="143" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Friend's Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eu3-IQ-ytR">
+                                <rect key="frame" x="85" y="166.5" width="150" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="HQ6-0h-g5A"/>
+                                    <constraint firstAttribute="height" constant="30" id="e5Z-Md-ggc"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ekg-fT-9wp">
-                                <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="dj1-UN-068"/>
-                                    <constraint firstAttribute="width" constant="75" id="uQY-eO-6ZT"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="Add Friend"/>
-                                <connections>
-                                    <action selector="addFriendPressed:" destination="T6R-er-Yci" eventType="touchUpInside" id="yIj-NC-LKx"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W5e-Cp-AVt">
-                                <rect key="frame" x="0.0" y="0.0" width="27" height="12"/>
+                                <rect key="frame" x="0.0" y="0.0" width="26.5" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -561,13 +545,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7A-D4-3AS">
-                                <rect key="frame" x="143" y="115" width="35" height="20"/>
+                                <rect key="frame" x="143" y="115" width="35" height="19.5"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-UltraLight" family="Apple SD Gothic Neo" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="17u-JQ-gMB">
-                                <rect key="frame" x="-4" y="161" width="328" height="407"/>
+                                <rect key="frame" x="-4" y="233" width="328" height="335"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="idFriendCell" textLabel="zi2-Kv-3NY" detailTextLabel="uIT-VL-BMx" style="IBUITableViewCellStyleValue1" id="Ohw-3a-yij">
@@ -600,19 +584,35 @@
                                     <outlet property="delegate" destination="T6R-er-Yci" id="eTD-2Z-m0f"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ekg-fT-9wp">
+                                <rect key="frame" x="123" y="198" width="75" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="418-Na-hyq"/>
+                                    <constraint firstAttribute="height" constant="30" id="FGc-iy-oq2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Add Friend"/>
+                                <connections>
+                                    <action selector="addFriendPressed:" destination="T6R-er-Yci" eventType="touchUpInside" id="yIj-NC-LKx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="qmb-6D-EUm" firstAttribute="top" secondItem="g7A-D4-3AS" secondAttribute="bottom" constant="5" id="1we-C5-kbp"/>
+                            <constraint firstItem="Ekg-fT-9wp" firstAttribute="top" secondItem="eu3-IQ-ytR" secondAttribute="bottom" constant="1.5" id="9Rr-pM-mlL"/>
                             <constraint firstItem="g7A-D4-3AS" firstAttribute="top" secondItem="GEA-wZ-jrl" secondAttribute="bottom" constant="10" id="DEK-0E-3AE"/>
                             <constraint firstItem="GEA-wZ-jrl" firstAttribute="centerX" secondItem="IhD-Zm-i7f" secondAttribute="centerX" id="Iqw-S2-VGI"/>
                             <constraint firstItem="GEA-wZ-jrl" firstAttribute="top" secondItem="bfV-9t-2e8" secondAttribute="bottom" constant="10" id="NIH-BY-kf8"/>
+                            <constraint firstItem="eu3-IQ-ytR" firstAttribute="top" secondItem="qmb-6D-EUm" secondAttribute="bottom" constant="10" id="OUG-mc-u91"/>
+                            <constraint firstItem="17u-JQ-gMB" firstAttribute="top" secondItem="Ekg-fT-9wp" secondAttribute="bottom" constant="5" id="ObS-vc-laS"/>
+                            <constraint firstItem="eu3-IQ-ytR" firstAttribute="centerX" secondItem="IhD-Zm-i7f" secondAttribute="centerX" id="RHI-Sz-kHY"/>
                             <constraint firstItem="qmb-6D-EUm" firstAttribute="centerX" secondItem="IhD-Zm-i7f" secondAttribute="centerX" id="Ri7-f3-p9i"/>
                             <constraint firstAttribute="trailingMargin" secondItem="17u-JQ-gMB" secondAttribute="trailing" constant="-20" id="XXL-4j-vvJ"/>
+                            <constraint firstItem="Ekg-fT-9wp" firstAttribute="centerX" secondItem="IhD-Zm-i7f" secondAttribute="centerX" id="gfc-ni-M4u"/>
                             <constraint firstItem="Grh-WJ-AKU" firstAttribute="top" secondItem="17u-JQ-gMB" secondAttribute="bottom" id="gxp-mH-tSV"/>
                             <constraint firstItem="17u-JQ-gMB" firstAttribute="leading" secondItem="IhD-Zm-i7f" secondAttribute="leadingMargin" constant="-20" id="hhW-W7-ywu"/>
                             <constraint firstItem="g7A-D4-3AS" firstAttribute="centerX" secondItem="IhD-Zm-i7f" secondAttribute="centerX" id="p21-OY-7er"/>
-                            <constraint firstItem="17u-JQ-gMB" firstAttribute="top" secondItem="qmb-6D-EUm" secondAttribute="bottom" constant="5" id="x18-LW-HJU"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" id="TzD-mh-PS1"/>
@@ -628,7 +628,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VnD-i1-yNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="902" y="1429"/>
+            <point key="canvasLocation" x="885" y="1427"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KpJ-fW-8HH">
