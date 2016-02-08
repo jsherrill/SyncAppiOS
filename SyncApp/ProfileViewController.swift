@@ -34,12 +34,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if firebaseManager == nil {
             firebaseManager = FirebaseManager()
-            firebaseManager.initFirebaseURLsFromPListKey("Info", plistURLKey: "FirebaseURL")
-            
-            let localUser = NSUserDefaults.standardUserDefaults().valueForKey("FirebaseUser")
-            if localUser != nil {
-                firebaseManager.localUser.deserialize((localUser as? [String:AnyObject])!)
-            }
+            firebaseManager.initFirebaseURLsFromPListKey("Info", plistURLKey: "FirebaseURL", checkForUserAuth: true)
         }
         
         configureProfileLabels()

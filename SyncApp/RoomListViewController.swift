@@ -15,6 +15,7 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
     var firebaseManager:FirebaseManager!
     
     @IBOutlet var roomsTable: UITableView!
+    @IBOutlet var invitesBarButton: UIBarButtonItem!
     var roomCount = 1
     var rooms:NSMutableArray = NSMutableArray()
     
@@ -30,13 +31,28 @@ class RoomListViewController: UIViewController, UITableViewDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        firebaseManager = FirebaseManager()
-        firebaseManager.initFirebaseURLsFromPListKey("Info", plistURLKey: "FirebaseURL")
-        
-        let localUser = NSUserDefaults.standardUserDefaults().valueForKey("FirebaseUser")
-        if localUser != nil {
-            firebaseManager.localUser.deserialize((localUser as? [String:AnyObject])!)
+        if firebaseManager == nil {
+            firebaseManager = FirebaseManager()
+            firebaseManager.initFirebaseURLsFromPListKey("Info", plistURLKey: "FirebaseURL", checkForUserAuth: true)
         }
+        
+        let invites = firebaseManager.userRoot.childByAppendingPath("\(firebaseManager.localUser.username)/invites")
+        invites.observeEventType(.Value, withBlock: { entry in
+            if (entry.value is NSNull) == false {
+                if entry.childrenCount > 0 {
+                    self.invitesBarButton.title = "Invites (\(entry.childrenCount))"
+                    self.invitesBarButton.enabled = true
+                }
+                else {
+                    self.invitesBarButton.enabled = false
+                    self.invitesBarButton.title = ""
+                }
+            }
+            else {
+                self.invitesBarButton.enabled = false
+                self.invitesBarButton.title = ""
+            }
+        })
         
         firebaseManager.roomsRoot.observeEventType(.Value, withBlock: { entry in
             if entry.value is NSNull {

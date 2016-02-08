@@ -31,8 +31,19 @@ class FirebaseManager {
         }
     }
     
+    func initFirebaseURLsFromPListKey(plistName:String, plistURLKey:String, checkForUserAuth:Bool) {
+        self.initFirebaseURLsFromPListKey(plistName, plistURLKey: plistURLKey)
+        
+        if _isInitialized && checkForUserAuth {
+            let storedUser = NSUserDefaults.standardUserDefaults().valueForKey("FirebaseUser")
+            if storedUser != nil {
+                localUser.deserialize((storedUser as? [String:AnyObject])!)
+            }
+        }
+    }
+    
     private func _initFirebaseURLs() {
-        if _firebaseURL.characters.count != 0 {
+        if _firebaseURL != nil && _firebaseURL.characters.count != 0 {
             root = Firebase(url: _firebaseURL)
             userRoot = root.childByAppendingPath("users")
             roomsRoot = root.childByAppendingPath("rooms")

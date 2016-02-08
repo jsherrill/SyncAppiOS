@@ -21,6 +21,7 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
     var messagesViewController:MessagesViewController!
     
     var members:NSMutableArray = NSMutableArray()
+    var invitedMembers:[String] = [String]()
     var roomId: String!
     var youTubeUrl: String!
     
@@ -114,9 +115,21 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
         self.createYouTubePlayer()
         
         if let roomId = roomId {
-        
-        let membersForRoomRoot = firebaseManager.membersRoot.childByAppendingPath(roomId)
-        membersForRoomRoot.observeEventType(.Value, withBlock: { entry in
+            let invitedUsersRef = firebaseManager.root.childByAppendingPath("invites/\(roomId)")
+            invitedUsersRef.observeEventType(.Value, withBlock: { entry in
+                if (entry.value is NSNull) == false {
+                    let invitedEnum = entry.children
+                    self.invitedMembers.removeAll()
+                    
+                    while let invitedUser = invitedEnum.nextObject() as? FDataSnapshot {
+                        self.invitedMembers.append(invitedUser.key)
+                    }
+                    self.userTable.reloadData()
+                }
+            })
+            
+            let membersForRoomRoot = firebaseManager.membersRoot.childByAppendingPath(roomId)
+            membersForRoomRoot.observeEventType(.Value, withBlock: { entry in
             if entry.value is NSNull {
                 print ("no members")
             }
@@ -269,52 +282,85 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
     // MARK: TableView Delegate Methods
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        if invitedMembers.count == 0 {
+            return 1
+        }
+        else {
+            return 2
+        }
     }
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return ""
+        case 1:
+            return "Invited Users"
+        default:
+            return ""
+        }
+    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return members.count
+        switch section {
+        case 0:
+            return members.count
+        case 1:
+            return invitedMembers.count
+        default:
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("idUserCell", forIndexPath: indexPath)
         
-        let member = members[indexPath.row]
-        
-        cell.textLabel?.text = member["name"] as? String
-        cell.detailTextLabel?.text = member["state"] as? String
-        
-        if member["isReady"] as? Bool == true {
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        if indexPath.section == 0 {
+            let member = members[indexPath.row]
+            
+            cell.textLabel?.text = member["name"] as? String
+            cell.detailTextLabel?.text = member["state"] as? String
+            
+            if member["isReady"] as? Bool == true {
+                cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            }
+            else {
+                cell.accessoryType = UITableViewCellAccessoryType.None
+            }
         }
-        else {
-            cell.accessoryType = UITableViewCellAccessoryType.None
+        else if indexPath.section == 1 {
+            let member = invitedMembers[indexPath.row]
+            cell.textLabel?.text = member
+            cell.detailTextLabel?.text = ""
         }
-        
-        
+
         return cell
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let frame = tableView.frame
-        
-        let button: UIButton = UIButton(frame: CGRectMake(0, 0, frame.width, 44))
-        button.setTitle("Not Ready", forState: .Normal)
-        button.setTitle("Ready", forState: .Selected)
-        button.setTitle("Ready", forState: [.Selected, .Highlighted])
-        
-        button.titleLabel?.textColor = UIColor.whiteColor()
-        button.backgroundColor = UIColor.redColor()
-        button.addTarget(self, action: "readyButtonTapped:", forControlEvents: .TouchUpInside)
-        
-        button.setBackgroundColor(UIColor.redColor(), forUIControlState: .Normal)
-        button.setBackgroundColor(UIColor.greenColor(), forUIControlState: .Selected)
-        button.setBackgroundColor(UIColor.greenColor(), forUIControlState: [.Selected, .Highlighted])
-        
-        let headerView: UIView = UIView(frame: CGRectMake(0, 0, frame.width, 44))
-        headerView.addSubview(button);
-        
-        return headerView
+        if section == 0 {
+            let frame = tableView.frame
+            
+            let button: UIButton = UIButton(frame: CGRectMake(0, 0, frame.width, 44))
+            button.setTitle("Not Ready", forState: .Normal)
+            button.setTitle("Ready", forState: .Selected)
+            button.setTitle("Ready", forState: [.Selected, .Highlighted])
+            
+            button.titleLabel?.textColor = UIColor.whiteColor()
+            button.backgroundColor = UIColor.redColor()
+            button.addTarget(self, action: "readyButtonTapped:", forControlEvents: .TouchUpInside)
+            
+            button.setBackgroundColor(UIColor.redColor(), forUIControlState: .Normal)
+            button.setBackgroundColor(UIColor.greenColor(), forUIControlState: .Selected)
+            button.setBackgroundColor(UIColor.greenColor(), forUIControlState: [.Selected, .Highlighted])
+            
+            let headerView: UIView = UIView(frame: CGRectMake(0, 0, frame.width, 44))
+            headerView.addSubview(button);
+            
+            return headerView
+        }
+        else {
+            return tableView.tableHeaderView
+        }
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
