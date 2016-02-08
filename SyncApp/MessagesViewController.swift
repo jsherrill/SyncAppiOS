@@ -31,6 +31,11 @@ class MessagesViewController: JSQMessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if firebaseManager == nil {
+            firebaseManager = FirebaseManager()
+            firebaseManager.initFirebaseURLsFromPListKey("Info", plistURLKey: "FirebaseURL", checkForUserAuth: true)
+        }
+        
 //        firebaseManager = FirebaseManager()
 //        firebaseManager.initFirebaseURLsFromPListKey("Info", plistURLKey: "FirebaseURL")
 //        roomId = "-K9_ocER7aCHWKhwodwl"

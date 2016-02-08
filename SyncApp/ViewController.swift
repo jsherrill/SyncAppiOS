@@ -126,6 +126,10 @@ class ViewController: UIViewController, YouTubePlayerDelegate, UITableViewDelega
                     }
                     self.userTable.reloadData()
                 }
+                else {
+                    self.invitedMembers.removeAll()
+                    self.userTable.reloadData()
+                }
             })
             
             let membersForRoomRoot = firebaseManager.membersRoot.childByAppendingPath(roomId)
